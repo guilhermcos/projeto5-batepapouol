@@ -5,6 +5,7 @@ body {
     background-color: #F3F3F3;
     font-family: roboto, sans-serif;
     font-weight: 400;
+    overflow-x: hidden;
 }
 
 /*HEADER*/
