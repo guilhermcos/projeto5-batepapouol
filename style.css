@@ -1,5 +1,4 @@
 body {
-    box-sizing: border-box;
     background-color: #F3F3F3;
     font-family: roboto, sans-serif;
     font-weight: 400;
@@ -14,6 +13,9 @@ header {
     box-shadow: 0px 4px 6px #0000000D;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 header img:first-of-type {
@@ -26,6 +28,42 @@ header img:last-of-type {
     width: 42.19px;
     height: 30.94px;
     margin-right: 22.41px;
+}
+
+/*MAIN*/
+main {
+    width: 100%;
+    margin-top: 80px;
+}
+
+main>div {
+    background-color: red;
+    width: 100%;
+    min-height: 40px;
+    height: fit-content;
+    display: flex;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 3px;
+}
+
+main div p {
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+main div p span {
+    color: #AAAAAA;
+}
+
+main div p b {
+    font-weight: 700;
 }
 
 /*FOOTER*/
@@ -48,11 +86,13 @@ footer input {
     border: 0;
 }
 
-textarea:focus, input:focus, select:focus {
+textarea:focus,
+input:focus,
+select:focus {
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
-} 
+}
 
 footer input::-webkit-input-placeholder {
     color: #000000;
