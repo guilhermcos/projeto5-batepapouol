@@ -1,6 +1,7 @@
-*{
+* {
     box-sizing: border-box;
 }
+
 body {
     background-color: #F3F3F3;
     font-family: roboto, sans-serif;
@@ -38,10 +39,16 @@ header img:last-of-type {
 main {
     width: 100%;
     margin-top: 80px;
+    margin-bottom: 80px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.main::-webkit-scrollbar {
+    display: none;
 }
 
 main>div {
-    background-color: red;
     width: 100%;
     min-height: 40px;
     height: fit-content;
@@ -68,6 +75,18 @@ main div p span {
 
 main div p b {
     font-weight: 700;
+}
+
+.message {
+    background-color: #ffffff;
+}
+
+.status {
+    background-color: #DCDCDC;
+}
+
+.private-message {
+    background-color: #FFDEDE;
 }
 
 /*FOOTER*/
