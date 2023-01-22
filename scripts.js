@@ -1,13 +1,13 @@
-var nomeOnline;
-recebeMensagens();
+var nomeOnline, ultimaMensagem;
+login();
 function login() {
     const nomeLogin = { name: prompt("Informe o nome de usuário.") };
-    console.log(nomeLogin);
-    const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nomeLogin)
+    const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nomeLogin);
     requisicao.then(tudoCerto);
     requisicao.catch(algoErrado);
     function tudoCerto(resposta) {
         setInterval(confirmaOnline, 5000, nomeLogin);
+        setInterval(recebeMensagens, 3000, nomeLogin);
     }
     function algoErrado(resposta) {
         console.log(resposta);
@@ -21,10 +21,36 @@ function confirmaOnline(nome) {
         //online
     }
 }
-function recebeMensagens() {
+function recebeMensagens(nomeLogin) {
     const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promise.then(mostraMensagem)
+    promise.then(mostraMensagem);
     function mostraMensagem(mensagens) {
-        console.log(mensagens);
+        let seUltima = 0;
+        if(ultimaMensagem !== undefined){
+            seUltima = mensagens.data.findIndex(item => item.time === ultimaMensagem.time && item.text === ultimaMensagem.text);
+            seUltima = seUltima+1;
+            console.log("se última é "+seUltima);
+        }
+        for (i = seUltima; i < mensagens.data.length; i++) {
+            type = mensagens.data[i].type;
+            if (type === 'message') {
+                mostrarMensagem(mensagens.data[i].time, mensagens.data[i].from, mensagens.data[i].to, mensagens.data[i].text);
+            } else if (type === 'status') {
+                mostrarStatus(mensagens.data[i].time, mensagens.data[i].from, mensagens.data[i].to, mensagens.data[i].text);
+            } else if (type === 'private_message') {
+                mostrarPrivate(mensagens.data[i].time, mensagens.data[i].from, mensagens.data[i].to, mensagens.data[i].text);
+            }
+            ultimaMensagem = mensagens.data[i];
+        }
     }
+}
+
+function mostrarMensagem(time, from, to, text) {
+    document.querySelector("main").innerHTML += `<div class="message"><p><span>(${time}) </span>&nbsp<b>${from}</b> para <b>${to}</b>: ${text}</p></div>`
+}
+function mostrarStatus(time, from, to, text) {
+    document.querySelector("main").innerHTML += `<div class="status"><p><span>(${time}) </span>&nbsp<b>${from}</b> ${text}</p></div>`
+}
+function mostrarPrivate(time, from, to, text) {
+    document.querySelector("main").innerHTML += `<div class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
 }
