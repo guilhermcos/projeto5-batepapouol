@@ -26,10 +26,10 @@ function recebeMensagens(nomeLogin) {
     promise.then(mostraMensagem);
     function mostraMensagem(mensagens) {
         let seUltima = 0;
-        if(ultimaMensagem !== undefined){
+        if (ultimaMensagem !== undefined) {
             seUltima = mensagens.data.findIndex(item => item.time === ultimaMensagem.time && item.text === ultimaMensagem.text);
-            seUltima = seUltima+1;
-            console.log("se última é "+seUltima);
+            seUltima = seUltima + 1;
+            console.log("se última é " + seUltima);
         }
         for (i = seUltima; i < mensagens.data.length; i++) {
             type = mensagens.data[i].type;
@@ -41,6 +41,7 @@ function recebeMensagens(nomeLogin) {
                 mostrarPrivate(mensagens.data[i].time, mensagens.data[i].from, mensagens.data[i].to, mensagens.data[i].text);
             }
             ultimaMensagem = mensagens.data[i];
+            document.querySelector('main > div:last-of-type').scrollIntoView();
         }
     }
 }
@@ -52,5 +53,7 @@ function mostrarStatus(time, from, to, text) {
     document.querySelector("main").innerHTML += `<div class="status"><p><span>(${time}) </span>&nbsp<b>${from}</b> ${text}</p></div>`
 }
 function mostrarPrivate(time, from, to, text) {
-    document.querySelector("main").innerHTML += `<div class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
+    if (from === nomeOnline || to === nomeOnline) {
+        document.querySelector("main").innerHTML += `<div class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
+    }
 }
