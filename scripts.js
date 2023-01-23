@@ -6,6 +6,7 @@ function login() {
     requisicao.then(tudoCerto);
     requisicao.catch(algoErrado);
     function tudoCerto(resposta) {
+        recebeMensagens(nomeLogin);
         setInterval(confirmaOnline, 5000, nomeLogin);
         setInterval(recebeMensagens, 3000, nomeLogin);
     }
@@ -13,6 +14,8 @@ function login() {
         window.location.reload(true);
     }
 }
+
+//envia sinal de vida para o servidor
 function confirmaOnline(nome) {
     nomeOnline = nome;
     const requisicao = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', nomeOnline);
@@ -25,6 +28,8 @@ function confirmaOnline(nome) {
         window.location.reload(true);
     }
 }
+
+//recebe do servidor
 function recebeMensagens(nomeLogin) {
     const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     promise.then(mostraMensagem);
@@ -48,6 +53,8 @@ function recebeMensagens(nomeLogin) {
         }
     }
 }
+
+//mostra na tela as mensagens
 function mostrarMensagem(time, from, to, text) {
     document.querySelector("main").innerHTML += `<div data-test="message" class="message"><p><span>(${time}) </span>&nbsp<b>${from}</b> para <b>${to}</b>: ${text}</p></div>`
 }
@@ -59,6 +66,8 @@ function mostrarPrivate(time, from, to, text) {
         document.querySelector("main").innerHTML += `<div data-test="message" class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
     }
 }
+
+//envia mensagens para o servidor
 function enviarMensagem() {
     const message = document.querySelector('input.mensagem-digitada');
     const mensagemObj = {
@@ -75,3 +84,12 @@ function enviarMensagem() {
         window.location.reload(true);
     }
 }
+
+//enviar mensagem com Enter **
+const button = document.querySelector('.button-envio');
+document.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        button.click();
+    }
+})
+//**
