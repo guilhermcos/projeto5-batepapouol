@@ -20,6 +20,9 @@ function confirmaOnline(nome) {
     function tudoCerto(resposta) {
         //online
     }
+    requisicao.catch(algoErrado){
+        window.location.reload(true);
+    }
 }
 function recebeMensagens(nomeLogin) {
     const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -67,7 +70,7 @@ function enviarMensagem() {
     message.value = "";
     promise.then(recebeMensagens);
     promise.catch(reinicioPag);
-    function reinicioPag(){
+    function reinicioPag() {
         window.location.reload(true);
     }
 }
