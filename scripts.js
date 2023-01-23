@@ -45,14 +45,14 @@ function recebeMensagens(nomeLogin) {
     }
 }
 function mostrarMensagem(time, from, to, text) {
-    document.querySelector("main").innerHTML += `<div class="message"><p><span>(${time}) </span>&nbsp<b>${from}</b> para <b>${to}</b>: ${text}</p></div>`
+    document.querySelector("main").innerHTML += `<div data-test="message" class="message"><p><span>(${time}) </span>&nbsp<b>${from}</b> para <b>${to}</b>: ${text}</p></div>`
 }
 function mostrarStatus(time, from, to, text) {
-    document.querySelector("main").innerHTML += `<div class="status"><p><span>(${time}) </span>&nbsp<b>${from}</b> ${text}</p></div>`
+    document.querySelector("main").innerHTML += `<div data-test="message" class="status"><p><span>(${time}) </span>&nbsp<b>${from}</b> ${text}</p></div>`
 }
 function mostrarPrivate(time, from, to, text) {
     if (from === nomeOnline || to === nomeOnline) {
-        document.querySelector("main").innerHTML += `<div class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
+        document.querySelector("main").innerHTML += `<div data-test="message" class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
     }
 }
 function enviarMensagem() {
