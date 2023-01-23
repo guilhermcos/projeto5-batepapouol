@@ -29,7 +29,6 @@ function recebeMensagens(nomeLogin) {
         if (ultimaMensagem !== undefined) {
             seUltima = mensagens.data.findIndex(item => item.time === ultimaMensagem.time && item.text === ultimaMensagem.text);
             seUltima = seUltima + 1;
-            console.log("se última é " + seUltima);
         }
         for (i = seUltima; i < mensagens.data.length; i++) {
             type = mensagens.data[i].type;
@@ -45,7 +44,6 @@ function recebeMensagens(nomeLogin) {
         }
     }
 }
-
 function mostrarMensagem(time, from, to, text) {
     document.querySelector("main").innerHTML += `<div class="message"><p><span>(${time}) </span>&nbsp<b>${from}</b> para <b>${to}</b>: ${text}</p></div>`
 }
@@ -55,5 +53,21 @@ function mostrarStatus(time, from, to, text) {
 function mostrarPrivate(time, from, to, text) {
     if (from === nomeOnline || to === nomeOnline) {
         document.querySelector("main").innerHTML += `<div class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
+    }
+}
+function enviarMensagem() {
+    const message = document.querySelector('input.mensagem-digitada');
+    const mensagemObj = {
+        from: nomeOnline.name,
+        to: "Todos",
+        text: message.value,
+        type: "message"
+    }
+    const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagemObj);
+    message.value = "";
+    promise.then(recebeMensagens);
+    promise.catch(reinicioPag);
+    function reinicioPag(){
+        window.location.reload(true);
     }
 }
