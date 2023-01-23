@@ -10,7 +10,7 @@ function login() {
         setInterval(recebeMensagens, 3000, nomeLogin);
     }
     function algoErrado(resposta) {
-        console.log(resposta);
+        window.location.reload(true);
     }
 }
 function confirmaOnline(nome) {
