@@ -20,7 +20,8 @@ function confirmaOnline(nome) {
     function tudoCerto(resposta) {
         //online
     }
-    requisicao.catch(algoErrado){
+    requisicao.catch(algoErrado);
+    function algoErrado() {
         window.location.reload(true);
     }
 }
