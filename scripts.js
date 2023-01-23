@@ -1,4 +1,6 @@
 var nomeOnline, ultimaMensagem;
+var toQuem = "Todos";
+var visibility = "message";
 login();
 function login() {
     const nomeLogin = { name: prompt("Informe o nome de usuário.") };
@@ -7,6 +9,7 @@ function login() {
     requisicao.catch(algoErrado);
     function tudoCerto(resposta) {
         recebeMensagens(nomeLogin);
+        confirmaOnline(nomeLogin)
         setInterval(confirmaOnline, 5000, nomeLogin);
         setInterval(recebeMensagens, 3000, nomeLogin);
     }
@@ -62,8 +65,65 @@ function mostrarStatus(time, from, to, text) {
     document.querySelector("main").innerHTML += `<div data-test="message" class="status"><p><span>(${time}) </span>&nbsp<b>${from}</b> ${text}</p></div>`
 }
 function mostrarPrivate(time, from, to, text) {
-    if (from === nomeOnline || to === nomeOnline) {
+    if (from === nomeOnline.name || to === nomeOnline.name) {
         document.querySelector("main").innerHTML += `<div data-test="message" class="private-message"><p><span>(${time}) </span>&nbsp<b>${from}</b> reservadamente para <b>${to}</b>: ${text}</p></div>`
+    }
+}
+
+function mostrarUsuarios() {
+    document.querySelector('.overlay').classList.remove('display-none');
+    document.querySelector('.users').classList.remove('display-none');
+    const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promise.then(mostraParticipantes);
+    function mostraParticipantes(usuarios) {
+        const participantes = usuarios.data;
+        console.log(participantes);
+        const users = document.querySelector('.users-container');
+        for (i = 0; i < participantes.length; i++) {
+            users.innerHTML += `
+            <div data-test="participant" onclick="mudarDestinatario(this)" class="user-button">
+            <img src="imagens/Vectorpq-contact.svg" alt="">
+            <p id="todos">${participantes[i].name}</p>
+            <img data-test="check" class="display-none-user" src="imagens/Vectorcheck.svg" alt="">
+            </div>
+            `
+        }
+    }
+}
+
+function esconderUsuarios() {
+    const users = document.querySelector('.users-container');
+    users.innerHTML = "";
+    document.querySelector('.overlay').classList.add('display-none');
+    document.querySelector('.users').classList.add('display-none');
+}
+
+function mudarDestinatario(paraQuem) {
+    const seSelecionado = document.querySelector('.selecionado');
+    if (seSelecionado !== null) {
+        seSelecionado.classList.remove('selecionado');
+        seSelecionado.querySelector('img:last-of-type').classList.add('display-none-user');
+    }
+    paraQuem.classList.add('selecionado');
+    paraQuem.querySelector('img:last-of-type').classList.remove('display-none-user');
+    toQuem = paraQuem.querySelector('p').innerHTML;
+    console.log(toQuem);
+}
+
+function mudarVisibilidade(visib) {
+    const seSelecionado = document.querySelector('.selecionado-vis');
+    if (seSelecionado !== null) {
+        seSelecionado.classList.remove('selecionado-vis');
+        seSelecionado.querySelector('img:last-of-type').classList.add('display-none-user');
+    }
+    visib.classList.add('selecionado-vis');
+    visib.querySelector('img:last-of-type').classList.remove('display-none-user');
+    visib = visib.querySelector('p').innerHTML;
+    console.log(visib);
+    if (visib === "Público") {
+        visibility = "message";
+    } else if (visib === "Reservadamente") {
+        visibility = "private_message"
     }
 }
 
@@ -72,9 +132,9 @@ function enviarMensagem() {
     const message = document.querySelector('input.mensagem-digitada');
     const mensagemObj = {
         from: nomeOnline.name,
-        to: "Todos",
+        to: toQuem,
         text: message.value,
-        type: "message"
+        type: visibility
     }
     const promise = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagemObj);
     message.value = "";

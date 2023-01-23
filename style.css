@@ -92,6 +92,152 @@ main div p b {
     background-color: #FFDEDE;
 }
 
+/*ASIDE*/
+
+.display-none {
+    display: none;
+}
+
+.overlay {
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000099;
+}
+
+.users {
+    overflow-y: scroll;
+    z-index: 6;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70vw;
+    height: 100vh;
+}
+
+.users-text {
+    height: 84px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.users-text>p {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    text-align: center;
+
+}
+
+.users-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2px;
+}
+
+.user-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 93%;
+    height: 36px;
+}
+
+.display-none-user {
+    display: none;
+}
+
+.user-button img:first-of-type {
+    margin-left: 9px;
+    width: 25px;
+    height: 25px;
+}
+
+.user-button img:last-of-type {
+    position: absolute;
+    right: 16px;
+    width: 12px;
+    height: 15px;
+}
+
+.user-button>p {
+    margin-left: 8px;
+    position: absolute;
+    left: 41px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+}
+
+.visibilidade-text {
+    height: 66px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    text-align: center;
+}
+
+.visibilidade-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 300px;
+}
+
+.visibilidade-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 93%;
+    height: 36px;
+}
+
+.visibilidade-button img:first-of-type {
+    margin-left: 9px;
+    width: 25px;
+    height: 25px;
+}
+
+.visibilidade-button img:last-of-type {
+    position: absolute;
+    right: 16px;
+    width: 12px;
+    height: 15px;
+}
+
+.visibilidade-button>p {
+    margin-left: 8px;
+    position: absolute;
+    left: 41px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+}
+
 /*FOOTER*/
 footer {
     background-color: #ffffff;

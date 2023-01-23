@@ -17,12 +17,41 @@
 <body>
     <header>
         <img src="imagens/logo 1logoUol.png" alt="">
-        <img src="imagens/Vectorpersons-icon.svg" alt="">
+        <img onclick="mostrarUsuarios()" src="imagens/Vectorpersons-icon.svg" alt="">
     </header>
 
     <main>
-
     </main>
+    <aside>
+        <div onclick="esconderUsuarios()" data-test="overlay" class="overlay display-none"></div>
+        <div class="users display-none">
+            <div class="users-text">
+                <p>Escolha um contato <br>para enviar mensagem:</p>
+            </div>
+            <div data-test="all" class="users-container">
+                <div data-test="participant" onclick="mudarDestinatario(this)" class="user-button">
+                    <img src="imagens/Vectorpq-people.svg" alt="">
+                    <p id="todos">Todos</p>
+                    <img data-test="check" class="display-none-user" src="imagens/Vectorcheck.svg" alt="">
+                </div>
+            </div>
+            <div class="visibilidade-text">
+                <p>Escolha a visibilidade:</p>
+            </div>
+            <div class="visibilidade-container">
+                <div data-test="public" onclick="mudarVisibilidade(this)" class="visibilidade-button">
+                    <img src="imagens/Vectorunlocked.svg" alt="">
+                    <p id="todos">Público</p>
+                    <img data-test="check" class="display-none-user" src="imagens/Vectorcheck.svg" alt="">
+                </div>
+                <div data-test="private" onclick="mudarVisibilidade(this)" class="visibilidade-button">
+                    <img src="imagens/Vectorlocked.svg" alt="">
+                    <p id="todos">Reservadamente</p>
+                    <img data-test="check" class="display-none-user" src="imagens/Vectorcheck.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </aside>
 
     <footer>
         <input data-test="input-message" class="mensagem-digitada" placeholder="Escreva aqui..." type="text">
